@@ -4,14 +4,16 @@
   "description": "",
   "main": "server.mjs",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "npx pm2 start server.mjs --watch"
   },
   "author": "denis dovgodko",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.7",
     "express": "^4.19.2",
-    "express-handlebars": "^8.0.1"
+    "express-handlebars": "^8.0.1",
+    "pm2": "^5.4.2"
   },
   "devDependencies": {
     "jest": "^29.7.0"
