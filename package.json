@@ -1,0 +1,15 @@
+{
+  "name": "task1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "denis dovgodko",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-handlebars": "^8.0.1"
+  }
+}
