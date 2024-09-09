@@ -57,7 +57,7 @@ resource "aws_instance" "ec2" {
 #!/bin/bash
 sudo dnf install -y git npm
 sudo mkdir -p /var/www/nodejs-project; cd /var/www/nodejs-project
-sudo git clone https://github.com/denis-dovgodko/nodejs-cicd-gitops .
+sudo git clone https://github.com/denis-dovgodko/nodejs-cicd .
 sudo npm install -g express express-handlebars pm2
 sudo /usr/local/bin/pm2 start server.mjs --watch
 sudo /usr/local/bin/pm2 startup
