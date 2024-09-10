@@ -63,9 +63,9 @@ resource "aws_instance" "ec2" {
   user_data = base64encode(<<-EOF
 #!/bin/bash
 sudo dnf install -y git npm letsencrypt
-sudo mkdir -p /var/www/nodejs-project; cd /var/www/nodejs-project
-sudo chmod -R 775 /var/www/nodejs-project
-git clone ${var.github_repo_url} .
+sudo mkdir -p /var/www; cd /var/www
+sudo chmod -R 775 /var/www
+git clone ${var.github_repo_url} .; cd webapp
 sudo npm ci
 sudo npm install -g pm2
 sudo certbot certonly --standalone --preferred-challenges http \
