@@ -9,6 +9,9 @@ include "root"{
 inputs = {
     ec2_subnet = dependency.vpc.outputs.public_subnets[0]
     vpc_id = dependency.vpc.outputs.vpc_id
+    github_repo_url = getenv("GITHUB_REPO")
+    email = getenv("EMAIL")
+    domain = getenv("DOMAIN")
 }
 
 dependency "vpc" {

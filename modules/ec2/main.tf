@@ -24,6 +24,13 @@ resource "aws_security_group" "ec2_sg" {
     cidr_blocks     = ["0.0.0.0/0"]
   }
   ingress {
+    description     = "Allow Sonarqube"
+    protocol        = "tcp"
+    from_port       = 9000
+    to_port         = 9000
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
+  ingress {
     description     = "Allow HTTP"
     protocol        = "tcp"
     from_port       = 80
@@ -55,13 +62,19 @@ resource "aws_instance" "ec2" {
   associate_public_ip_address = true
   user_data = base64encode(<<-EOF
 #!/bin/bash
-sudo dnf install -y git npm
+sudo dnf install -y git npm letsencrypt
 sudo mkdir -p /var/www/nodejs-project; cd /var/www/nodejs-project
-sudo chmod -R 755 /var/www/nodejs-project
-git clone https://github.com/denis-dovgodko/nodejs-cicd .
-npm install -g
-sudo /usr/local/bin/pm2 start server.mjs --watch
-sudo /usr/local/bin/pm2 startup
+sudo chmod -R 775 /var/www/nodejs-project
+git clone ${var.github_repo_url} .
+sudo npm ci
+sudo npm install -g pm2
+sudo certbot certonly --standalone --preferred-challenges http \
+  --non-interactive \
+  --agree-tos \
+  --email ${var.email} \
+  -d ${var.domain}
+sudo pm2 start server.mjs --watch
+sudo pm2 startup
 EOF
     )
   tags = {

@@ -1,8 +1,15 @@
 // server.mjs
 import express from 'express';
 import { engine } from 'express-handlebars';
+import https from 'https';
+import fs from 'fs';
 
 const server = express();
+
+const options = {
+    cert: fs.readFileSync('/etc/letsencrypt/live/denisdovgodko.duckdns.org/fullchain.pem'),
+    key: fs.readFileSync('/etc/letsencrypt/live/denisdovgodko.duckdns.org/privkey.pem')
+};
 
 server.engine('handlebars', engine())
     .set('view engine', 'handlebars')
@@ -11,10 +18,7 @@ server.engine('handlebars', engine())
     res.render('index');
 });
 
-// starts a simple http server locally on port 80
-server.listen(80, '0.0.0.0', () => {
-console.log('Listening on 0.0.0.0:80');
+https.createServer(options, server).listen(443, '0.0.0.0', () => {
+    console.log('Listening on 0.0.0.0:443');
 });
-
-// run with `node server.mjs`
 

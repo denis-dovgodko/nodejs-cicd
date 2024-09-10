@@ -12,6 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: nodejs
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
@@ -26,6 +27,11 @@ jobs:
     - run: npm ci
     - run: sudo npm run start --if-present
     - run: npm test
+    - name: SonarQube scanning
+      uses: sonarsource/sonarqube-scan-action@master
+      with:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   deploy:
     runs-on: ubuntu-latest
     environment: nodejs
