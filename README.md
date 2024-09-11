@@ -44,7 +44,7 @@ You could make changes in repo and push changes to gihub. It will automatically 
 ## What I did. Brief stages reports
 #### I. Web app. Node.js + Express.js + handlebars template views
 #### II. AWS infrastructure. Terragrunt&terraform to deploy AWS VPC, EC2 and bash script via user-data
-#### III. CI/CD pipeline with GitHub Actions. Axios test for connectivity to our server test in CI.
+#### III. CI/CD pipeline with GitHub Actions. Axios test & SonarQube scanning for connectivity to our server test in CI.
 #### IV. Security measures. Environment variables(.env)
 #### V. TLS/SSL standart. Server communication transfer to HTTPS with Let's encrypt certificate. Node.js app upgrade
 #### VI. SonarQube in k8s deployment. Including scanning code process to CI
